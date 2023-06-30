@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "e8a3e487-05ab-437c-bf9a-96fec154e135",
+		"name": "DemoSample",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "16720583"
+	},
+	"item": [
+		{
+			"name": "Adding a user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json()\r",
+							"pm.collectionVariables.set('userId',jsonData.id)\r",
+							"\r",
+							"pm.test(\"Status test\", function ()\r",
+							"{\r",
+							"    pm.response.to.have.status(201);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Email test validation\", function ()\r",
+							"{\r",
+							"    pm.expect(jsonData.email).to.be.equal('jma.demo@getsa.com')\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Javier Marcos Aceves\",\r\n    \"email\": \"jma.demo@getsa.com\",\r\n    \"gender\": \"male\",\r\n    \"status\": \"active\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{protocol}}://{{url}}/{{visible}}/{{version}}/users"
+			},
+			"response": []
+		},
+		{
+			"name": "Query all users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function ()\r",
+							"{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{protocol}}://{{url}}/{{visible}}/{{version}}/users/"
+			},
+			"response": []
+		},
+		{
+			"name": "Query a user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function ()\r",
+							"{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json()\r",
+							"pm.test(\"Gender test validation\", function ()\r",
+							"{\r",
+							"    pm.expect(jsonData.name).to.be.eq('Javier Marcos Aceves')\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{protocol}}://{{url}}/{{visible}}/{{version}}/users/{{userId}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Update a user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function ()\r",
+							"{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json()\r",
+							"pm.test(\"Gender test validation\", function ()\r",
+							"{\r",
+							"    pm.expect(jsonData.gender).to.be.eq('female')\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status test validation\", function ()\r",
+							"{\r",
+							"    pm.expect(jsonData.status).to.be.eq('inactive')\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n     \"name\": \"Javier Marcos Aceves\",\r\n        \"email\": \"jma.demo@getsa.com\",\r\n        \"gender\": \"female\",\r\n        \"status\": \"inactive\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{protocol}}://{{url}}/{{visible}}/{{version}}/users/{{userId}}"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function ()\r",
+							"{\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{protocol}}://{{url}}/{{visible}}/{{version}}/users/{{userId}}"
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": {
+			"token": "4373ee3cf9a56b85a8c557a20de882e6c39aa306823a17a1e522b35ff69d7cb8"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userId",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
